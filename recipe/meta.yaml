@@ -6,21 +6,21 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/pyparam-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/pyparam-{{ version }}.tar.gz
   sha256: 5513742f9668429d42e7b0acaf02c6ae868466b048ff91f1241f0c6d067a0af5
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.7,<4.0
+    - python {{ python_min }}
     - poetry >=0.12
     - pip
   run:
-    - python >=3.7.0,<4.0.0
+    - python >={{ python_min }},<4.0.0
     - python-simpleconf >=0.5.0,<0.6.0
     - rich >=13.0.0,<14.0.0
     - diot >=0.1.0,<0.2.0
@@ -32,6 +32,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/pwwang/pyparam
